@@ -1,0 +1,82 @@
+:root {
+	--ds-sidebar-width: 360px;
+	--ds-adminbar-height: 0px; /* JS will set this when admin bar is present */
+}
+
+/* Only the element we mark as the "layout root" gets shifted */
+.ds-shifted-root {
+     padding-right: var(--ds-sidebar-width) !important;
+     box-sizing: border-box;
+}
+
+.edit-site-layout__content.ds-shifted-root {
+  padding-right: var(--ds-sidebar-width) !important;
+  box-sizing: border-box;
+}
+
+/* The injected sidebar container */
+#ds-right-admin-sidebar {
+	position: fixed;
+	top: var(--ds-adminbar-height);
+	right: 0;
+	width: var(--ds-sidebar-width);
+	height: calc(100vh - var(--ds-adminbar-height));
+	background: #fff;
+	border-left: 1px solid #dcdcde;
+	z-index: 99999; /* above admin UI, below modals if needed */
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+}
+
+/* Simple header + content scaffolding */
+#ds-right-admin-sidebar .ds-sidebar-header {
+	padding: 10px 12px;
+	font-weight: 600;
+	border-bottom: 1px solid #dcdcde;
+}
+
+#ds-right-admin-sidebar .ds-sidebar-content {
+	padding: 12px;
+	overflow: auto;
+	flex: 1 1 auto;
+}
+
+/* Compact toggle/handle (optional) */
+#ds-right-admin-sidebar .ds-sidebar-handle {
+	position: absolute;
+	left: -12px;
+	top: 40px;
+	width: 12px;
+	height: 48px;
+	border: 1px solid #dcdcde;
+	border-right: 0;
+	border-radius: 6px 0 0 6px;
+	background: #f6f7f7;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 10px;
+	cursor: pointer;
+}
+
+#ds-right-admin-sidebar[data-collapsed="true"] {
+	width: 0;
+	border-left: 0;
+}
+#ds-right-admin-sidebar[data-collapsed="true"] .ds-sidebar-content,
+#ds-right-admin-sidebar[data-collapsed="true"] .ds-sidebar-header {
+	display: none;
+}
+body.ds-has-right-admin-sidebar.ds-sidebar-collapsed {
+	padding-right: 0;
+}
+body.ds-has-right-admin-sidebar.ds-sidebar-collapsed #wpwrap,
+body.ds-has-right-admin-sidebar.ds-sidebar-collapsed #wpcontent,
+body.ds-has-right-admin-sidebar.ds-sidebar-collapsed #wpbody-content,
+body.ds-has-right-admin-sidebar.ds-sidebar-collapsed .interface-interface-skeleton,
+body.ds-has-right-admin-sidebar.ds-sidebar-collapsed .edit-post-layout,
+body.ds-has-right-admin-sidebar.ds-sidebar-collapsed .edit-site-layout,
+body.ds-has-right-admin-sidebar.ds-sidebar-collapsed .block-editor__container {
+	padding-right: 0 !important;
+}
